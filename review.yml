@@ -1,0 +1,375 @@
+aid: cargolux
+name: Cargolux
+kind: company
+review:
+  question: >-
+    Does Cargolux publish a callable, documented API surface that the next party in
+    the air cargo chain — a freight forwarder, a ground handler, a customs broker or a
+    visibility platform — can integrate against without a bilateral commercial contract?
+  answer: false
+  date: '2026-07-30'
+  reviewer: API Evangelist
+  tier: air-cargo-carrier
+  cohort: air-cargo-parcel
+  homeCountry: Luxembourg
+domain:
+  hint: cargolux.com
+  verified: true
+  primary: https://www.cargolux.com/
+  note: >-
+    The roster hint resolves and is the real organization. cargolux.com 301s to
+    www.cargolux.com and serves the Cargolux Airlines International S.A. corporate and
+    customer site. Related but distinct hosts confirmed live: my.cargolux.com (customer
+    portal), anniversary.cargolux.com, kids.cargolux.com, cargolux-shop.com, and the
+    separate subsidiary site www.cargolux-italia.com.
+probes:
+  date: '2026-07-30'
+  method: curl -s -o /dev/null -w "%{http_code}" -L --max-time 20
+  results:
+  - url: https://www.cargolux.com/
+    status: 200
+    note: Corporate/customer marketing site. Track-and-trace, flight scheduler and contact tabs.
+  - url: https://cargolux.com/
+    status: 200
+    note: Redirects to https://www.cargolux.com/.
+  - url: https://developer.cargolux.com/
+    status: 000
+    note: Does not resolve (DNS failure). No developer subdomain exists.
+  - url: https://developers.cargolux.com/
+    status: 000
+    note: Does not resolve (DNS failure).
+  - url: https://docs.cargolux.com/
+    status: 000
+    note: Does not resolve (DNS failure).
+  - url: https://api.cargolux.com/
+    status: 404
+    note: Host resolves and answers, but returns 404 at root. No documentation, no index.
+  - url: https://api.cargolux.com/openapi.json
+    status: 404
+  - url: https://api.cargolux.com/swagger.json
+    status: 404
+  - url: https://api.cargolux.com/v1/
+    status: 404
+  - url: https://www.cargolux.com/developers
+    status: 404
+  - url: https://www.cargolux.com/api
+    status: 404
+  - url: https://www.cargolux.com/openapi.json
+    status: 404
+  - url: https://www.cargolux.com/swagger.json
+    status: 404
+  - url: https://www.cargolux.com/api-docs
+    status: 404
+  - url: https://www.cargolux.com/.well-known/
+    status: 404
+  - url: https://www.cargolux.com/e-services/
+    status: 404
+  - url: https://my.cargolux.com/
+    status: 200
+    note: >-
+      "Cargolux Customer Portal". A React/Vite SPA shell (1,685 bytes of HTML, all content
+      behind JS bundles) with no unauthenticated content, no signup link in the shell and
+      no developer or API documentation. This is a customer login, not a developer portal.
+  - url: https://www.cargolux.com/track-and-trace/
+    status: 200
+    note: Public HTML AWB tracker. No API documented, no key issuance, no rate limits published.
+  - url: https://www.cargolux.com/flight-scheduler/
+    status: 200
+    note: Public HTML schedule search (GET form to /flight-scheduler/). No API.
+  - url: https://www.cargolux.com/your-shipment-s-journey/go-paperless/
+    status: 200
+    note: e-AWB / Single Process explainer page. Prose only.
+  - url: https://www.cargolux.com/customer-service/
+    status: 200
+  - url: https://cargolux-icargo-api-app-prod.politesmoke-46f514de.westeurope.azurecontainerapps.io/
+    status: 200
+    note: >-
+      UNDOCUMENTED first-party backend. Discovered as the literal apiUrl value inside the
+      data-track-and-trace-simple-module JSON configuration embedded in the HTML of both
+      https://www.cargolux.com/ and https://www.cargolux.com/track-and-trace/. GET / returns
+      the body "OK"; HEAD / returns 405 with "allow: GET" and "server: Kestrel" (ASP.NET
+      Core). /swagger/index.html, /swagger/v1/swagger.json, /openapi.json, /api-docs,
+      /health and /.well-known/openapi.json all return 404. The host name identifies it as
+      the front end to Cargolux's IBS Software iCargo cargo management system. It is a
+      website backend, not a published product — no documentation, no terms, no key
+      issuance, no versioning policy. It is deliberately NOT listed in apis.yml as an API.
+  - url: https://api.github.com/orgs/cargolux
+    status: 200
+    note: >-
+      github.com/cargolux exists (org id 174129116, created 2024-06-28) but has 0 public
+      repositories, 0 members shown, no description and is unverified. No specs published there.
+  - url: https://developer.champ.aero/apis
+    status: 200
+    note: >-
+      Live developer portal — but it belongs to CHAMP Cargosystems, the Luxembourg air-cargo
+      IT provider in which Cargolux holds a large minority stake (widely reported at 49%),
+      not to Cargolux. Recorded here as the adjacent surface, not as a Cargolux surface.
+  - url: https://cvtnt.champ.aero/trackntrace
+    status: 503
+    note: >-
+      CHAMP-hosted legacy tracking endpoint. Cargolux's own tracker page carries a migration
+      notice — "We are in the process of migrating our tracking system to a new platform" —
+      with a link out to "the former system", consistent with a CHAMP-to-iCargo migration.
+findings:
+  summary: |
+    Cargolux publishes NOTHING machine-readable. No OpenAPI, no AsyncAPI, no GraphQL, no
+    Postman collection, no developer portal, no API terms, no key issuance page, no
+    changelog. Every developer-convention path was probed and returned 404 or failed DNS.
+
+    This is not the same as "Cargolux has no API." Cargolux demonstrably has one. In
+    October 2021 it announced a piloted API with Kuehne+Nagel that lets a forwarder
+    "connect their operating system to receive quotes and book their freight onboard a
+    Cargolux flight", and the same interface was subsequently extended to DB Schenker.
+    Trade press framed it as Cargolux deliberately going direct rather than through
+    platforms. That API is a bilateral, commercially negotiated forwarder integration: the
+    counterparty is a named contracted freight forwarder, the contract is a sales agreement,
+    and nothing about the interface is public.
+
+    Where a third party actually reaches Cargolux programmatically today is through
+    somebody else's contract. Since 2024 Cargolux quotes and bookings are distributed via
+    the cargo.one, CargoAi and WebCargo by Freightos marketplaces. Those aggregators are to
+    air cargo what Duffel is to airline content: the integration layer that exists because
+    the carriers did not build one. A forwarder integrates once with the marketplace and
+    gets Cargolux capacity; it does not integrate with Cargolux.
+
+    Operationally Cargolux replaced its cargo management system with IBS Software's iCargo
+    SaaS (announced December 2021), and its Luxcargo Handling terminal subsidiary is
+    implementing iCargo CTO (2025). Its historical IT provider CHAMP Cargosystems — a
+    Luxembourg company Cargolux part-owns — runs a genuine API partner program and a live
+    developer portal at developer.champ.aero. The developer-facing air cargo surface in
+    Cargolux's orbit therefore belongs to its vendors, not to the airline.
+
+    This is exactly the pattern the travel study predicted downstream of IATA's ONE Record:
+    the standard is authored centrally, the carrier participates in the industry framing,
+    and the callable contract at the carrier's own edge is absent.
+  publicSurfaces:
+  - name: Track and Trace
+    url: https://www.cargolux.com/track-and-trace/
+    shape: HTML widget
+    documented: false
+    note: >-
+      Accepts AWB prefix + 8-digit serial. Backed by the undocumented Azure Container Apps
+      iCargo host. No published API, no auth, no terms of use for programmatic access.
+  - name: Flight Scheduler
+    url: https://www.cargolux.com/flight-scheduler/
+    shape: HTML GET form
+    documented: false
+  - name: Customer Portal
+    url: https://my.cargolux.com/
+    shape: Authenticated SPA
+    documented: false
+    note: Contracted-customer login. No self-serve signup surfaced, no developer section.
+  artifactsHarvested:
+    openapi: 0
+    asyncapi: 0
+    graphql: 0
+    postman: 0
+    note: >-
+      Nothing was saved because nothing real was found. No openapi/ directory was created.
+      No specification was fabricated, reconstructed or inferred from observed traffic.
+interoperability:
+  standardConformance:
+    standards:
+    - name: IATA e-AWB / e-freight "Single Process"
+      version: not published by Cargolux
+      claimed: true
+      published: false
+      evidence: https://www.cargolux.com/your-shipment-s-journey/go-paperless/
+      note: >-
+        Cargolux documents e-AWB in prose — "The electronic Air Waybill (e-AWB) is the
+        electronic contract of carriage between the 'forwarder' and the 'carrier'" and
+        "With the Single Process the freight forwarder always sends an e-AWB to the
+        airline and the cargo is accepted without paper AWB, regardless of the trade lane."
+        No IATA resolution number, no message standard, no version, and no technical
+        onboarding detail is given. It is a commercial commitment, not a published contract.
+    - name: IATA Cargo-IMP FSU status vocabulary
+      version: not stated
+      claimed: false
+      published: false
+      evidence: https://www.cargolux.com/track-and-trace/
+      confidence: inferred-from-observed-payload
+      note: >-
+        The tracker's embedded translation table exposes an "awbStatusPlanned" /
+        "awbStatusActual" code set containing arr, dep, awd, awr, rct, tfd and ddx — the
+        IATA Cargo-IMP FSU status-code vocabulary (arrived, departed, documents delivered,
+        arrival documents delivered, received from carrier, transferred to carrier, direct
+        delivery). This is strong evidence that the underlying event vocabulary is the
+        legacy IATA one, but Cargolux nowhere states it. Recorded as inference from an
+        observed public payload, not as a Cargolux claim.
+    - name: IATA ONE Record
+      claimed: false
+      published: false
+      evidence: null
+      note: >-
+        NO evidence found. No Cargolux media release, developer page or IATA pilot listing
+        naming Cargolux as a ONE Record implementer was located. ONE Record became IATA
+        members' preferred data-sharing standard on 1 January 2026; Cargolux publishes
+        nothing about it. This is the central finding of this profile.
+    - name: IATA Cargo-XML
+      claimed: false
+      published: false
+      evidence: null
+      note: No Cargolux publication referencing Cargo-XML, XFWB, XFZB or XFHL was found.
+    - name: DCSA
+      applicable: false
+      note: Not applicable — Cargolux is an air cargo carrier, not an ocean container line.
+    - name: GS1 / EPCIS
+      claimed: false
+      published: false
+      note: No GS1, EPCIS, GTIN, SSCC or GLN reference found on any Cargolux surface.
+    - name: WCO Data Model / eFTI / UN-CEFACT
+      claimed: false
+      published: false
+      note: >-
+        No reference found. Cargolux's compliance pages (/your-shipment-s-journey/be-compliant/,
+        /embargoed-goods/) are prose obligations on the shipper, not data-model conformance.
+    summary: >-
+      IATA e-AWB "Single Process" claimed in prose only; Cargo-IMP FSU status vocabulary
+      observed in the public tracker payload; no ONE Record and no Cargo-XML publication found.
+  interfaceShape:
+    value: proprietary-undocumented
+    rationale: >-
+      A real quote-and-booking API exists (Kuehne+Nagel pilot 2021, DB Schenker extension)
+      but no reference, schema, base URL, auth scheme or error model is published anywhere.
+      The one first-party API host that could be observed — the iCargo Azure Container Apps
+      backend behind the public tracker — serves no OpenAPI and no swagger UI. Nothing
+      Cargolux exposes is a shape another organization could also implement.
+  identifierScheme:
+    found:
+    - name: IATA air waybill number
+      detail: >-
+        Airline prefix + 8-digit serial. Cargolux's own tracker help text states verbatim:
+        "Enter one of the valid prefixes '172' or '356' followed by the 8 digit AWB-number"
+        — 172 is Cargolux (IATA designator CV), 356 is Cargolux Italia.
+      evidence: https://www.cargolux.com/track-and-trace/
+      shared: true
+    - name: IATA airline designator
+      detail: CV for Cargolux; Cargolux Italia operates separately.
+      shared: true
+    - name: IATA airport / station codes and flight numbers
+      detail: Used by the /flight-scheduler/ origin-destination search.
+      evidence: https://www.cargolux.com/flight-scheduler/
+      shared: true
+    notFound:
+    - GS1 GTIN / SSCC / GLN / SGTIN
+    - Container numbers (BIC/ISO 6346) — not applicable to air cargo
+    - Bill of lading numbers / UN-LOCODE / IMO numbers — not applicable
+    - EORI, HS tariff codes, DUNS, SCAC — not exposed on any public surface
+    summary: >-
+      IATA air waybill numbers on prefixes 172 and 356, IATA airline designator CV, IATA
+      airport codes and flight numbers. All shared industry identifiers; no GS1 keys, no
+      customs identifiers and no vendor-opaque IDs exposed publicly.
+  eventModel:
+    value: none-published
+    subscriptionOperation: null
+    rationale: >-
+      No webhook, no callback, no subscription endpoint, no AsyncAPI, no event catalog and
+      no published status-code reference exist on any Cargolux surface. The tracker UI has a
+      "Get notified" affordance ("getNotified" string in the page's translation bundle) but
+      it is a browser feature inside the site, with no documented counterpart a partner
+      system could subscribe to. The underlying vocabulary is almost certainly IATA
+      Cargo-IMP FSU push messaging over the legacy type-B network, since the FSU code set is
+      visible in the page payload — but Cargolux publishes no event contract, so the
+      published event model is none.
+  ediLegacy:
+    value: >-
+      e-AWB "Single Process" documented in prose; Cargo-IMP FSU status vocabulary observed
+      in the public tracker payload; no EDIFACT, X12, AS2 or VAN onboarding published.
+    detail: >-
+      Cargolux never names EDIFACT, ANSI X12, AS2 or a VAN anywhere public, and never
+      describes an onboarding or mapping project. Air cargo's incumbent rails are IATA
+      Cargo-IMP (type-B) and Cargo-XML rather than EDIFACT/X12, and the FSU status codes
+      surfacing in the tracker's own translation table place Cargolux on the Cargo-IMP side
+      of that legacy. The REST veneer that exists — the iCargo web backend and the bilateral
+      forwarder quote API — sits on top of that, is not offered to all customers, and is
+      documented to none of them.
+  multiPartyPosture:
+    value: >-
+      Sells to contracted freight forwarders and GSAs only; direct API is bilateral and
+      per-forwarder; open access is delegated to the cargo.one, CargoAi and WebCargo by
+      Freightos marketplaces.
+    detail: >-
+      Verified: (1) the 2021 Kuehne+Nagel pilot media release describes the interface as
+      letting "customers connect their operating system to receive quotes and book their
+      freight onboard a Cargolux flight", scoped to the Brussels, Milan, Frankfurt and
+      London offices — a named-partner rollout, not a product launch; (2) trade press
+      records DB Schenker on the same connection; (3) the 2024 media release confirms
+      Cargolux went live on cargo.one, CargoAi and WebCargo by Freightos, initially in
+      Benelux and Germany with gradual geographic expansion, describing marketplaces as "an
+      additional, intuitive tool". There is no partner directory, no integrations catalogue
+      and no marketplace of pre-built connectors on cargolux.com. A shipper cannot call
+      Cargolux at all; a forwarder either signs a bilateral agreement or integrates a
+      marketplace. Cargolux consumes e-AWB data from forwarders and publishes status back
+      through those same private channels.
+    aggregatorLayer:
+    - name: cargo.one
+      evidence: https://www.cargolux.com/media/media-releases/2024/cargolux-goes-live-on-cargoone-cargoai-and-webcargo-by-freightos-to-enhance-digital-offer/
+    - name: CargoAi
+      evidence: https://www.cargolux.com/media/media-releases/2024/cargolux-goes-live-on-cargoone-cargoai-and-webcargo-by-freightos-to-enhance-digital-offer/
+    - name: WebCargo by Freightos
+      evidence: https://www.webcargo.co/airline/cargolux/
+  accessGate:
+    value: commercial-agreement
+    whatADeveloperMustSign: >-
+      There is no self-serve path of any kind. To get the direct quote-and-booking API a
+      developer's employer must be a Cargolux-contracted freight forwarder or GSA with a
+      cargo sales agreement, then negotiate the interface bilaterally through the local
+      Cargolux sales office — the 2021 rollout was office-by-office (Brussels, Milan,
+      Frankfurt, London), which is a sales motion, not an onboarding flow. To use the
+      Customer Portal at my.cargolux.com a customer account is required. The only surface
+      any developer can reach without a contract is the public HTML tracker and flight
+      scheduler, which carry no programmatic terms. Governing terms are Cargolux's General
+      Terms and Conditions of Cargo Sales, Conditions of Carriage and Conditions of Contract.
+    selfServeDeveloperPortal: false
+  vendorSurfaces:
+    note: >-
+      Recorded because in this sector the callable surface frequently belongs to the
+      carrier's IT vendor rather than the carrier. None of these are Cargolux publications.
+    vendors:
+    - name: IBS Software iCargo
+      relationship: Cargolux's cargo management system (SaaS), selected December 2021; Luxcargo Handling implementing iCargo CTO from April 2025.
+      cargoluxOwned: false
+    - name: CHAMP Cargosystems
+      relationship: Luxembourg air-cargo IT provider, founded as a Cargolux subsidiary, Cargolux retains a large minority stake (reported 49%). Runs a Cargospot API Partner Program and a live developer portal.
+      portal: https://developer.champ.aero/apis
+      cargoluxOwned: false
+sources:
+- url: https://www.cargolux.com/
+  type: Website
+  note: HTTP 200. Homepage; source of the embedded track-and-trace module configuration and the apiUrl backend host.
+- url: https://www.cargolux.com/track-and-trace/
+  type: TrackAndTrace
+  note: HTTP 200. Source of the AWB prefix rule ("172" or "356" + 8 digits) and the FSU-style status code table.
+- url: https://www.cargolux.com/your-shipment-s-journey/go-paperless/
+  type: Documentation
+  note: HTTP 200. e-AWB / Single Process statement; no message standard named.
+- url: https://my.cargolux.com/
+  type: CustomerPortal
+  note: HTTP 200. Login-only SPA shell titled "Cargolux Customer Portal".
+- url: https://www.cargolux.com/media/media-releases/2021/cargolux-and-kuehne-nagel-pilot-api-connectivity-for-quotes-bookings/
+  type: PressRelease
+  note: Primary evidence that a direct forwarder quote-and-booking API exists and is bilateral.
+- url: https://www.cargolux.com/media/media-releases/2024/cargolux-goes-live-on-cargoone-cargoai-and-webcargo-by-freightos-to-enhance-digital-offer/
+  type: PressRelease
+  note: Primary evidence for the aggregator distribution layer.
+- url: https://www.cargolux.com/media/media-releases/2021/cargolux-selects-ibs-software-s-icargo-solution-as-next-generation-cargo-management-system/
+  type: PressRelease
+  note: iCargo selection; explains the cargolux-icargo-api-app-prod host name.
+- url: https://developer.champ.aero/apis
+  type: APIReference
+  note: HTTP 200. Vendor developer portal, not a Cargolux surface.
+- url: https://api.github.com/orgs/cargolux
+  type: GitHubOrganization
+  note: HTTP 200. Empty org, 0 public repos.
+actions:
+  apisListed: 0
+  openapiHarvested: false
+  specsCount: 0
+  openapiDirectoryCreated: false
+  reason: >-
+    apis[] is empty and no openapi/ directory exists because Cargolux publishes no
+    documented API. The undocumented iCargo website backend was found and recorded with its
+    HTTP evidence but was deliberately not promoted to an apis[] entry, and no specification
+    was reverse-engineered from it. An air carrier that helped shape the industry's
+    digitalization agenda and publishes zero callable contracts at its own edge is the exact
+    finding this study exists to record.

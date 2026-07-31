@@ -1,0 +1,82 @@
+aid: cargolux
+url: https://raw.githubusercontent.com/api-evangelist/cargolux/refs/heads/main/apis.yml
+name: Cargolux
+kind: company
+description: >-
+  Cargolux Airlines International S.A. is Europe's largest all-cargo airline, headquartered
+  at Luxembourg Findel Airport in Luxembourg and operating a global Boeing 747 freighter
+  network under IATA designator CV and air waybill prefix 172 (with Cargolux Italia on
+  prefix 356). In the logistics chain Cargolux is the main-leg air carrier: it sells
+  capacity to freight forwarders and general sales agents rather than to shippers, hands
+  cargo to terminal and ground handling operators such as its Luxcargo Handling subsidiary,
+  and files customs and security data on behalf of the contracted forwarder. Its API
+  posture is honestly a customer-contract one. Cargolux publishes no developer portal and
+  no machine-readable contract of any kind — developer.cargolux.com, developers.cargolux.com
+  and docs.cargolux.com do not resolve, and /developers, /api, /openapi.json, /swagger.json,
+  /api-docs and /.well-known/ all return 404 on www.cargolux.com. The only public
+  self-service surfaces are HTML: a track-and-trace widget and a flight scheduler on the
+  marketing site, plus a login-walled Customer Portal at my.cargolux.com. A real quote-and-
+  booking API exists, but it is a bilateral, commercially negotiated forwarder interface —
+  piloted with Kuehne+Nagel in 2021 and extended to DB Schenker — with no published
+  reference, and it is complemented by indirect distribution through the cargo.one, CargoAi
+  and WebCargo by Freightos marketplaces. Underneath, Cargolux runs IBS Software's iCargo
+  SaaS cargo management system and holds a large minority stake in Luxembourg's CHAMP
+  Cargosystems, whose developer.champ.aero portal is the developer surface Cargolux's
+  ecosystem actually reads — CHAMP's, not Cargolux's. IATA e-AWB "Single Process" is
+  documented; no IATA ONE Record or Cargo-XML publication was found.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+tags:
+- Logistics
+- Supply Chain
+- Luxembourg
+- Air Cargo
+- Airlines
+- Freight
+- Track and Trace
+- Standards
+created: '2026-07-30'
+modified: '2026-07-30'
+specificationVersion: '0.19'
+apis: []
+common:
+- type: Website
+  url: https://www.cargolux.com/
+- type: CustomerPortal
+  url: https://my.cargolux.com/
+- type: Documentation
+  url: https://www.cargolux.com/customer-service/
+- type: Documentation
+  url: https://www.cargolux.com/your-shipment-s-journey/
+- type: TrackAndTrace
+  url: https://www.cargolux.com/track-and-trace/
+- type: Schedules
+  url: https://www.cargolux.com/flight-scheduler/
+- type: EAWB
+  url: https://www.cargolux.com/your-shipment-s-journey/go-paperless/
+- type: TermsOfService
+  url: https://www.cargolux.com/terms-of-use/
+- type: ConditionsOfCarriage
+  url: https://www.cargolux.com/conditions-of-carriage/
+- type: ConditionsOfContract
+  url: https://www.cargolux.com/conditions-of-contract/
+- type: GeneralTermsAndConditions
+  url: https://www.cargolux.com/general-terms-and-conditions-of-cargo-sales/
+- type: PrivacyPolicy
+  url: https://www.cargolux.com/data-protection/
+- type: CookiePolicy
+  url: https://www.cargolux.com/cookie-policy/
+- type: Blog
+  url: https://www.cargolux.com/media/media-releases/
+- type: LinkedIn
+  url: https://www.linkedin.com/company/cargolux-airlines/
+- type: Facebook
+  url: https://www.facebook.com/CargoluxAirlines
+- type: Twitter
+  url: https://twitter.com/Cargolux_Intl
+- type: GitHubOrganization
+  url: https://github.com/cargolux
+- type: Contact
+  url: https://www.cargolux.com/contact/
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
