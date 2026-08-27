@@ -24,7 +24,13 @@ description: >-
   Cargosystems, whose developer.champ.aero portal is the developer surface Cargolux's
   ecosystem actually reads — CHAMP's, not Cargolux's. IATA e-AWB "Single Process" is
   documented; no IATA ONE Record or Cargo-XML publication was found.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/groq.png
+imageNote: >-
+  The `image` property was removed on 2026-08-26. It had been copied verbatim out of a
+  bootstrap template and pointed at an icon belonging to groq, not to this company.
+  That asset returns HTTP 200, so the record rendered another company's brand
+  rather than a broken image, which is why it went unreported (roadmap#153).
+  No correct icon has been sourced yet. Shipping the wrong company's mark is worse
+  than shipping none; re-run the icon backfill once a real asset exists.
 tags:
 - Logistics
 - Supply Chain
