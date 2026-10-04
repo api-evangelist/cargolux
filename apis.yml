@@ -40,6 +40,7 @@ tags:
 - Freight
 - Track and Trace
 - Standards
+- Aviation
 deliveryModel:
   model: saas
   open_source: false
